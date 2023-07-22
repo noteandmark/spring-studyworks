@@ -13,6 +13,10 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import javax.sql.DataSource;
+
 @EnableWebMvc
 @Configuration
 @ComponentScan({"com.home.andmark.bookkeeping"})
@@ -70,6 +74,23 @@ public class SpringConfig implements WebMvcConfigurer {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         return viewResolver;
+    }
+
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/project1");
+        dataSource.setUsername("user");
+        dataSource.setPassword("1234");
+
+        return dataSource;
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(dataSource());
     }
 
 }
