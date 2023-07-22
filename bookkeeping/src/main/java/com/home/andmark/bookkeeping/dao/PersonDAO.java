@@ -1,18 +1,6 @@
 package com.home.andmark.bookkeeping.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import com.home.andmark.bookkeeping.model.Person;
 
-@Component
-public class PersonDAO {
-
-    private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public PersonDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-
+public interface PersonDAO extends AbstractDAO<Person> {
 }

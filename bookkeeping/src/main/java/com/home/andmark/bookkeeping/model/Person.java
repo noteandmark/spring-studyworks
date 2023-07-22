@@ -5,16 +5,28 @@ import java.util.Objects;
 public class Person {
     private int id;
     private String name;
-    private String surname;
     private String patronymic;
+    private String surname;
     int birthday;
 
-    public Person(int id, String name, String surname, String patronymic, int birthday) {
+    public Person(int id, String name, String patronymic, String surname, int birthday) {
         this.id = id;
         this.name = name;
-        this.surname = surname;
         this.patronymic = patronymic;
+        this.surname = surname;
         this.birthday = birthday;
+    }
+
+    public Person() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -25,20 +37,20 @@ public class Person {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getPatronymic() {
         return patronymic;
     }
 
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public int getBirthday() {
@@ -54,8 +66,8 @@ public class Person {
         return "Person{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
                 ", patronymic='" + patronymic + '\'' +
+                ", surname='" + surname + '\'' +
                 ", birthday=" + birthday +
                 '}';
     }
@@ -65,11 +77,11 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id == person.id && birthday == person.birthday && Objects.equals(name, person.name) && Objects.equals(surname, person.surname) && Objects.equals(patronymic, person.patronymic);
+        return id == person.id && birthday == person.birthday && Objects.equals(name, person.name) && Objects.equals(patronymic, person.patronymic) && Objects.equals(surname, person.surname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, patronymic, birthday);
+        return Objects.hash(id, name, patronymic, surname, birthday);
     }
 }

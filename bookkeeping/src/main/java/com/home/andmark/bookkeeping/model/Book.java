@@ -4,9 +4,22 @@ import java.util.Objects;
 
 public class Book {
     private int id;
+    private int personId;
     private String title;
     private String author;
     int year;
+
+    public Book(int id, int personId, String title, String author, int year) {
+        this.id = id;
+        this.personId = personId;
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
+
+    public Book() {
+
+    }
 
     public int getId() {
         return id;
@@ -14,6 +27,14 @@ public class Book {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
     public String getTitle() {
@@ -44,6 +65,7 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "id=" + id +
+                ", personId=" + personId +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", year=" + year +
@@ -55,11 +77,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author);
+        return id == book.id && personId == book.personId && year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, year);
+        return Objects.hash(id, personId, title, author, year);
     }
 }
