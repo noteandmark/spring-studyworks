@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<body>
+<h1>Add a person page</h1>
+
+<form th:method="POST" th:action="@{/persons}" th:object="${person}">
+    <div class="row">
+        <label for="name">Enter name: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    </div>
+    <div class="row">
+        <label for="patronymic">Enter patronymic: </label>
+        <input type="text" th:field="*{patronymic}" id="patronymic"/>
+        <div style="color:red" th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}">Patronymic Error
+        </div>
+    </div>
+    <div class="row">
+        <label for="surname">Enter surname: </label>
+        <input type="text" th:field="*{surname}" id="surname"/>
+        <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
+    </div>
+    <div class="row">
+        <label for="birthday">Enter birthday: </label>
+        <input type="text" class="form-control" th:field="*{birthday}" id="birthday"/>
+        <div style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday Error</div>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Create!"/>
+    <br/>
+</form>
+
+</body>
+</html>

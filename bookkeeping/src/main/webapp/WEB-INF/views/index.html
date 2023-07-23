@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Spring Web MVC BookKeeping App</title>
-
-    <!-- Boostrap core css -->
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
-
-    <!-- custom style -->
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
-
 </head>
-
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -23,12 +15,62 @@
 <main role="main" class="container">
 
     <div class="starter-template">
-        <h1>Spring Web MVC BookKeeping App</h1>
+        <h1>Spring Web MVC App started</h1>
         <h2>
-            <span th:text="'Hello, ' + ${message}"></span>
+<!--            <span th:text="'Hello, ' + ${message}"></span>-->
         </h2>
     </div>
 
+    <div class="container-fluid">
+        <h1 th:text="'BookKeeping Main Page'">BookKeeping Main Page</h1>
+        <br/>
+        <h3>Here you can manage with application</h3>
+        <i class="fa-solid fa-thumbs-up fa-2x"></i>
+        <hr/>
+        <br/>
+        <div class="container">
+            <button class="btn btn-primary" onclick="window.location.href='/persons/index.html'">
+                A list of all the people
+            </button>
+        </div>
+        <br/>
+        <div class="container">
+            <button class="btn btn-primary" onclick="window.location.href='/persons/new.html'">
+                Add person
+            </button>
+        </div>
+        <br/>
+        <div class="container">
+            <button class="btn btn-primary" onclick="window.location.href='/persons/edit.html'">
+                Edit person
+            </button>
+        </div>
+        <br/>
+        <div class="container">
+            <button class="btn btn-primary" onclick="window.location.href='/books/index.html'">
+                A list of all the books
+            </button>
+        </div>
+        <br/>
+        <div class="container">
+            <button class="btn btn-primary" onclick="window.location.href='/books/new.html'">
+                Add book
+            </button>
+        </div>
+        <br/>
+        <div class="container">
+            <button class="btn btn-primary" onclick="window.location.href='/books/edit.html'">
+                Edit book
+            </button>
+        </div>
+        <br/>
+    </div>
+
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </main>
 <!-- /.container -->
 

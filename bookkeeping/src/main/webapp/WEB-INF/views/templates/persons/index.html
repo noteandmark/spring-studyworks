@@ -5,14 +5,17 @@
     <title>Index Person</title>
 </head>
 <body>
+<h1>A page with a list of all people</h1>
+
 <div th:each="person : ${persons}">
-    <a th:href="@{/people/{id}(id=${person.getId()})}"
-       th:text="${person.getName() + ', ' + person.getAge()}">user</a>
+    <a th:href="@{/persons/{id}(id=${person.getId()})}"
+       th:text="${person.getSurname() + ' ' + person.getName() +
+       ' ' + person.getPatronymic() + ', ' + person.getBirthday()}">user</a>
 </div>
 
 <br/>
 <hr/>
 
-<a href="/people/new">Create new person</a>
+<a href="/persons/new">Create new person</a>
 </body>
 </html>

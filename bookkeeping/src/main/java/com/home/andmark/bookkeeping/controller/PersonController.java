@@ -1,31 +1,79 @@
 package com.home.andmark.bookkeeping.controller;
 
-import com.home.andmark.bookkeeping.dao.PersonDAO;
+import com.home.andmark.bookkeeping.dto.PersonDTO;
+import com.home.andmark.bookkeeping.service.impl.PersonServiceImpl;
+import com.home.andmark.bookkeeping.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/persons")
 public class PersonController {
 
-    private final PersonDAO personDAO;
+    private final PersonServiceImpl personService;
+    private final PersonValidator personValidator;
 
     @Autowired
-    public PersonController(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PersonController(PersonServiceImpl personService, PersonValidator personValidator) {
+        this.personService = personService;
+        this.personValidator = personValidator;
     }
 
-    @GetMapping("")
+    @GetMapping("/index")
     public String showAll(Model model) {
-        return null;
+        model.addAttribute("persons", personService.readAll());
+        return "templates/persons/index";
     }
 
     @GetMapping("/{id}")
     public String showPersonById(@PathVariable("id") int id, Model model) {
-        return null;
+        model.addAttribute("person", personService.read(id));
+        return "templates/persons/show";
+    }
+
+    @GetMapping("/new")
+    public String newPerson(@ModelAttribute("person") PersonDTO personDTO) {
+//    public String newPerson(Model model) {
+//        model.addAttribute("person", new PersonDTO());
+        return "templates/persons/new";
+    }
+
+    @PostMapping("")
+    public String create(@ModelAttribute("person") @Valid PersonDTO personDTO,
+                         BindingResult bindingResult) {
+
+        personValidator.validate(personDTO, bindingResult);
+
+        if (bindingResult.hasErrors())
+            return "templates/persons/new";
+
+        personService.save(personDTO);
+        return "redirect:persons/index";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("person", personService.read(id));
+        return "templates/persons/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") @Valid PersonDTO personDTO, BindingResult bindingResult,
+                         @PathVariable("id") int id) {
+        if (bindingResult.hasErrors())
+            return "templates/persons/edit";
+
+        personService.update(id, personDTO);
+        return "redirect:/persons/index";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        personService.delete(id);
+        return "redirect:/persons/index";
     }
 }

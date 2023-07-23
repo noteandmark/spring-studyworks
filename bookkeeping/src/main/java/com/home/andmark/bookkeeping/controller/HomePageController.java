@@ -14,7 +14,7 @@ public class HomePageController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String welcome(ModelMap model) {
 
-        model.addAttribute("message", "Spring MVC BookKeeping is started!");
+//        model.addAttribute("message", "Spring MVC BookKeeping is started!");
 
         // view name, map to welcome.html later
         return "index";
