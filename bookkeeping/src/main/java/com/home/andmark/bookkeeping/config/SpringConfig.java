@@ -1,5 +1,7 @@
 package com.home.andmark.bookkeeping.config;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 import java.util.Objects;
 
+import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
+
 @EnableWebMvc
 @Configuration
 @ComponentScan({"com.home.andmark.bookkeeping"})
@@ -27,7 +31,7 @@ import java.util.Objects;
 public class SpringConfig implements WebMvcConfigurer {
 
     // Spring + Thymeleaf need this
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
     private final Environment environment;
 
     @Autowired
@@ -59,6 +63,17 @@ public class SpringConfig implements WebMvcConfigurer {
         // templates to be automatically updated when modified.
         templateResolver.setCacheable(true);
         return templateResolver;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STRICT)
+                .setFieldMatchingEnabled(true)
+                .setSkipNullEnabled(true)
+                .setFieldAccessLevel(PRIVATE);
+        return mapper;
     }
 
     // Spring + Thymeleaf
