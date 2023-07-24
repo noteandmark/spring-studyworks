@@ -1,12 +1,23 @@
 package com.home.andmark.bookkeeping.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class BookDTO {
     private int id;
     private Integer personId;
+
+    @NotEmpty(message = "Title should not be empty")
+    @Size(min = 2, max = 200, message = "Title should be between 2 and 200 characters")
     private String title;
+
+    @NotEmpty(message = "Author's name should not be empty")
+    @Size(min = 2, max = 200, message = "Author's name should be between 2 and 200 characters")
     private String author;
+
+    @Min(value = 0, message = "Year should be greater than 0")
     int year;
 
     public BookDTO(int id, Integer personId, String title, String author, int year) {
