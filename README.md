@@ -14,9 +14,9 @@ The local library wants to go digital for books. You need to implement a web app
 
 *Technologies used*
 
-Java, Spring Framework, Jakarta Servlet
+Java, Spring Framework, Servlet
 
-PostgreSQL, H2,
+JDBC Template, PostgreSQL, H2,
 
 JUnit, Mockito
 
