@@ -1,5 +1,7 @@
 package com.home.andmark.bookkeeping.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Person {
@@ -8,6 +10,7 @@ public class Person {
     private String patronymic;
     private String surname;
     int birthday;
+    private List<Book> books = new ArrayList<>();
 
     public Person(int id, String name, String patronymic, String surname, int birthday) {
         this.id = id;
@@ -19,6 +22,14 @@ public class Person {
 
     public Person() {
 
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public int getId() {

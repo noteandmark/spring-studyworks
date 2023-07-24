@@ -56,4 +56,33 @@ public class BookServiceImpl implements BookService {
         return all.stream().map(book -> mapper.map(book, BookDTO.class))
                 .collect(Collectors.toList());
     }
+
+    public void assignBookToPerson(int bookId, int personId) {
+
+        Book book = bookDAO.read(bookId);
+        //to-do: add an exceptions if one is needed in tech.task
+//        if (book == null) {
+//            throw new BookNotFoundException("Book with ID " + bookId + " not found.");
+//        }
+//
+//        if (book.getPersonId() != null) {
+//            throw new BookAlreadyAssignedException("Book with ID " + bookId + " is already assigned to a person.");
+//        }
+//
+//        Person person = personDAO.read(personId);
+//        if (person == null) {
+//            throw new PersonNotFoundException("Person with ID " + personId + " not found.");
+//        }
+
+        book.setPersonId(personId);
+        bookDAO.update(bookId, book);
+    }
+
+    public void releaseBook(int id) {
+        BookDTO book = read(id);
+        if (book != null) {
+            book.setPersonId(null);
+            update(id, book);
+        }
+    }
 }

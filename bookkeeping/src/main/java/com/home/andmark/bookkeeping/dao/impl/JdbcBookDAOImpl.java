@@ -19,10 +19,11 @@ import java.util.List;
 public class JdbcBookDAOImpl implements BookDAO {
     private static final String SQL_INSERT_BOOK = "INSERT INTO book(title,author,year) VALUES(?,?,?);";
     private static final String SQL_GETCOUNT_BOOK = "SELECT COUNT(*) FROM book";
-    private static final String SQL_FIND_BOOK = "SELECT id,title,author,year FROM book WHERE id = ?";
-    private static final String SQL_GET_ALL = "SELECT id,title,author,year FROM book";
-    private static final String SQL_UPDATE_BOOK = "UPDATE book set title = ?, author  = ?, year = ? where id = ?";
+    private static final String SQL_FIND_BOOK = "SELECT id,person_id,title,author,year FROM book WHERE id = ?";
+    private static final String SQL_GET_ALL = "SELECT id,person_id,title,author,year FROM book";
+    private static final String SQL_UPDATE_BOOK = "UPDATE book set person_id = ?, title = ?, author  = ?, year = ? where id = ?";
     private static final String SQL_DELETE_BOOK = "DELETE FROM book WHERE id=?";
+    private static final String SQL_GETBOOKS_FORPERSON = "SELECT id, title, author, year FROM book WHERE person_id = ?";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -72,7 +73,12 @@ public class JdbcBookDAOImpl implements BookDAO {
 
     @Override
     public Book update(int id, Book updatedbook) {
-        jdbcTemplate.update(SQL_UPDATE_BOOK, updatedbook.getTitle(), updatedbook.getAuthor(), updatedbook.getYear(), id);
+        jdbcTemplate.update(SQL_UPDATE_BOOK,
+                updatedbook.getPersonId(),
+                updatedbook.getTitle(),
+                updatedbook.getAuthor(),
+                updatedbook.getYear(),
+                id);
         return updatedbook;
     }
 
@@ -99,4 +105,15 @@ public class JdbcBookDAOImpl implements BookDAO {
         return jdbcTemplate.update(SQL_DELETE_BOOK, id);
     }
 
+    public List<Book> getBooksByPersonId(int personId) {
+        String sql = SQL_GETBOOKS_FORPERSON;
+        return jdbcTemplate.query(sql, new Object[]{personId}, (rs, rowNum) -> {
+            int id = rs.getInt("id");
+            String title = rs.getString("title");
+            String author = rs.getString("author");
+            int year = rs.getInt("year");
+
+            return new Book(id, personId, title, author, year);
+        });
+    }
 }

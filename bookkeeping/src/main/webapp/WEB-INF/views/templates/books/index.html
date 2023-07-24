@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Index Person</title>
+    <title>Index Book</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -10,17 +10,17 @@
     <a class="navbar-brand" href="/">Main Menu</a>
 </nav>
 
-<h1>A page with a list of all people</h1>
+<h1>A page with a list of all books</h1>
 
-<div th:each="person : ${persons}">
-    <a th:href="@{/persons/{id}(id=${person.getId()})}"
-       th:text="${person.getSurname() + ' ' + person.getName() +
-       ' ' + person.getPatronymic() + ', ' + person.getBirthday()}">user</a>
+<div th:each="book : ${books}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}"
+       th:text="${book.getTitle() + ' , ' + book.getAuthor() +
+       ' , ' + book.getYear()}">book</a>
 </div>
 
 <br/>
 <hr/>
 
-<a href="/persons/new">Create new person</a>
+<a href="/books/new">Create new book</a>
 </body>
 </html>

@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class BookDTO {
     private int id;
-    private int personId;
+    private Integer personId;
     private String title;
     private String author;
     int year;
 
-    public BookDTO(int id, int personId, String title, String author, int year) {
+    public BookDTO(int id, Integer personId, String title, String author, int year) {
         this.id = id;
         this.personId = personId;
         this.title = title;
@@ -29,11 +29,11 @@ public class BookDTO {
         this.id = id;
     }
 
-    public int getPersonId() {
+    public Integer getPersonId() {
         return personId;
     }
 
-    public void setPersonId(int personId) {
+    public void setPersonId(Integer personId) {
         this.personId = personId;
     }
 
@@ -62,6 +62,19 @@ public class BookDTO {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookDTO bookDTO = (BookDTO) o;
+        return id == bookDTO.id && year == bookDTO.year && Objects.equals(personId, bookDTO.personId) && Objects.equals(title, bookDTO.title) && Objects.equals(author, bookDTO.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, personId, title, author, year);
+    }
+
+    @Override
     public String toString() {
         return "BookDTO{" +
                 "id=" + id +
@@ -70,18 +83,5 @@ public class BookDTO {
                 ", author='" + author + '\'' +
                 ", year=" + year +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BookDTO bookDTO = (BookDTO) o;
-        return id == bookDTO.id && personId == bookDTO.personId && year == bookDTO.year && Objects.equals(title, bookDTO.title) && Objects.equals(author, bookDTO.author);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, personId, title, author, year);
     }
 }

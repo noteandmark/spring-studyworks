@@ -7,3 +7,4 @@ INSERT INTO book (person_id, title, author, year) VALUES (null,'Robinson Crusoe'
 INSERT INTO book (person_id, title, author, year) VALUES (2,'Gulliver’s Travels','Jonathan Swift',1726);
 INSERT INTO book (person_id, title, author, year) VALUES (3,'Emma','Jane Austen',1816);
 INSERT INTO book (person_id, title, author, year) VALUES (null,'Frankenstein','Mary Shelley',1818);
+INSERT INTO book (person_id, title, author, year) VALUES (2,'Hobbits’s Travels','Anonim',2000);
