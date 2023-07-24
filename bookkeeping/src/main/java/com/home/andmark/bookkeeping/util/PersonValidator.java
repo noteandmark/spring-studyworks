@@ -25,9 +25,12 @@ public class PersonValidator implements Validator {
     public void validate(Object o, Errors errors) {
         PersonDTO personDTO = (PersonDTO) o;
 
-        // Проверяем, что у человека имя начинается с заглавной буквы
-        // Если имя не начинается с заглавной буквы - выдаем ошибку
+        // Check that a person's names starts with a capital letter
         if (!Character.isUpperCase(personDTO.getName().codePointAt(0)))
             errors.rejectValue("name", "", "Name should start with a capital letter");
+        if (!Character.isUpperCase(personDTO.getName().codePointAt(0)))
+            errors.rejectValue("patronymic", "", "Patronymic should start with a capital letter");
+        if (!Character.isUpperCase(personDTO.getName().codePointAt(0)))
+            errors.rejectValue("surname", "", "Surname should start with a capital letter");
     }
 }

@@ -1,11 +1,15 @@
 package com.home.andmark.bookkeeping;
 
 import com.home.andmark.bookkeeping.config.SpringConfig;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import java.util.EnumSet;
 
 public class MyDispatcherServletInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -30,7 +34,20 @@ public class MyDispatcherServletInitializer
     @Override
     public void onStartup(ServletContext aServletContext) throws ServletException {
         super.onStartup(aServletContext);
+        registerCharacterEncodingFilter(aServletContext); //support ru.language
         registerHiddenFieldFilter(aServletContext);
+    }
+
+    private void registerCharacterEncodingFilter(ServletContext aServletContext) {
+        EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST,
+                DispatcherType.FORWARD);
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+
+        FilterRegistration.Dynamic characterEncoding = aServletContext.addFilter("characterEncoding",
+                characterEncodingFilter);
+        characterEncoding.addMappingForUrlPatterns(dispatcherTypes,true,"/*");
     }
 
     private void registerHiddenFieldFilter(ServletContext aContext) {

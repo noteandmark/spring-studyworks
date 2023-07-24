@@ -22,8 +22,9 @@ public class PersonDTO {
     @Size(min = 2, max = 100, message = "Surname should be between 2 and 100 characters")
     private String surname;
 
-    @Min(value = 0, message = "Birthday should be greater than 1900")
+    @Min(value = 1900, message = "Birthday should be greater than 1900")
     int birthday;
+
     private List<Book> books = new ArrayList<>();
 
     public PersonDTO(int id, String name, String patronymic, String surname, int birthday) {

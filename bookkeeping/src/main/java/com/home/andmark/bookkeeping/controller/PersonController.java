@@ -48,7 +48,6 @@ public class PersonController {
         personValidator.validate(personDTO, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            System.out.println("Error with create");
             return "templates/persons/new";
         }
 
