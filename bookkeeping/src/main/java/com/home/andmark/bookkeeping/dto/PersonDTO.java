@@ -25,7 +25,7 @@ public class PersonDTO {
     @Min(value = 1900, message = "Birthday should be greater than 1900")
     int birthday;
 
-    private List<Book> books = new ArrayList<>();
+    private List<Book> books;
 
     public PersonDTO(int id, String name, String patronymic, String surname, int birthday) {
         this.id = id;

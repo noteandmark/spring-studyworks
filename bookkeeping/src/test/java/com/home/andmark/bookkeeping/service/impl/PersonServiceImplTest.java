@@ -1,8 +1,10 @@
 package com.home.andmark.bookkeeping.service.impl;
 
 import com.home.andmark.bookkeeping.config.SpringConfig;
+import com.home.andmark.bookkeeping.dao.impl.JdbcBookDAOImpl;
 import com.home.andmark.bookkeeping.dao.impl.JdbcPersonDAOImpl;
 import com.home.andmark.bookkeeping.dto.PersonDTO;
+import com.home.andmark.bookkeeping.model.Book;
 import com.home.andmark.bookkeeping.model.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,11 +32,13 @@ import java.util.List;
 class PersonServiceImplTest {
     @Mock
     private JdbcPersonDAOImpl personDAO;
-    private PersonDTO personDTO;
-    private Person person;
-
+    @Mock
+    private JdbcBookDAOImpl bookDAO;
     @Mock
     private ModelMapper mapper;
+
+    private PersonDTO personDTO;
+    private Person person;
 
     @InjectMocks
     private PersonServiceImpl personService;
@@ -63,15 +67,31 @@ class PersonServiceImplTest {
 
     @Test
     void read() {
+        personDTO = new PersonDTO();
+        person = new Person();
+
         person.setId(5);
         person.setName("Tati");
         person.setPatronymic("Mich");
         person.setSurname("Koz");
         person.setBirthday(1988);
 
+        List<Book> books = new ArrayList<>();
+        books.add(new Book(10,5,"New","Aut",1990));
+        books.add(new Book(11,5,"New2","Aut2",1991));
+
         when(personDAO.read(anyInt())).thenReturn(person);
-        PersonDTO actual = personService.read(5);
-        assertEquals(personDTO, actual);
+        when(bookDAO.getBooksByPersonId(anyInt())).thenReturn(books);
+
+        PersonDTO expectedPersonDTO = personService.read(5);
+        when(mapper.map(person, PersonDTO.class)).thenReturn(expectedPersonDTO);
+
+        verify(personDAO, times(1)).read(5);
+        verify(bookDAO, times(1)).getBooksByPersonId(5);
+
+        PersonDTO result = personService.read(5);
+
+        assertEquals(expectedPersonDTO, result);
     }
 
     @Test
