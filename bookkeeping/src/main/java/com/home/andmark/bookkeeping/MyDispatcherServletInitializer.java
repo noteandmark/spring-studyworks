@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.util.EnumSet;
 
+//technology realization JdbcTemplate
 public class MyDispatcherServletInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
 
