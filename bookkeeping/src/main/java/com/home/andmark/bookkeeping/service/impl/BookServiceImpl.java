@@ -23,9 +23,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO save(BookDTO bookDTO) {
+    public void save(BookDTO bookDTO) {
         Book book = mapper.map(bookDTO, Book.class);
-        return mapper.map(bookDAO.save(book), BookDTO.class);
+        bookDAO.save(book);
     }
 
     @Override
@@ -42,14 +42,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO update(int id, BookDTO bookDTO) {
-        Book updated = bookDAO.update(id, mapper.map(bookDTO, Book.class));
-        return mapper.map(updated, BookDTO.class);
+    public void update(int id, BookDTO bookDTO) {
+        bookDAO.update(id, mapper.map(bookDTO, Book.class));
     }
 
     @Override
-    public int delete(int id) {
-        return bookDAO.delete(id);
+    public void delete(int id) {
+        bookDAO.delete(id);
     }
 
     private List<BookDTO> mapListOfEntityToDTO(List<Book> all) {
@@ -58,31 +57,18 @@ public class BookServiceImpl implements BookService {
     }
 
     public void assignBookToPerson(int bookId, int personId) {
-
-        Book book = bookDAO.read(bookId);
-        //to-do: add an exceptions if one is needed in tech.task
-//        if (book == null) {
-//            throw new BookNotFoundException("Book with ID " + bookId + " not found.");
-//        }
 //
-//        if (book.getPersonId() != null) {
-//            throw new BookAlreadyAssignedException("Book with ID " + bookId + " is already assigned to a person.");
-//        }
+//        Book book = bookDAO.read(bookId);
 //
-//        Person person = personDAO.read(personId);
-//        if (person == null) {
-//            throw new PersonNotFoundException("Person with ID " + personId + " not found.");
-//        }
-
-        book.setPersonId(personId);
-        bookDAO.update(bookId, book);
+//        book.setPersonId(personId);
+//        bookDAO.update(bookId, book);
     }
 
     public void releaseBook(int id) {
-        BookDTO book = read(id);
-        if (book != null) {
-            book.setPersonId(null);
-            update(id, book);
-        }
+//        BookDTO book = read(id);
+//        if (book != null) {
+//            book.setPersonId(null);
+//            update(id, book);
+//        }
     }
 }

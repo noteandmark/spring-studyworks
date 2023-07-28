@@ -1,17 +1,30 @@
 package com.home.andmark.bookkeeping.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "book")
 public class Book {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Integer personId;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "author")
     private String author;
+
+    @Column(name = "year")
     int year;
 
-    public Book(int id, Integer personId, String title, String author, int year) {
-        this.id = id;
-        this.personId = personId;
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person owner;
+
+    public Book(String title, String author, int year) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -27,14 +40,6 @@ public class Book {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Integer getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
     }
 
     public String getTitle() {
@@ -66,19 +71,18 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && year == book.year && Objects.equals(personId, book.personId) && Objects.equals(title, book.title) && Objects.equals(author, book.author);
+        return id == book.id && year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, personId, title, author, year);
+        return Objects.hash(id, title, author, year);
     }
 
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", personId=" + personId +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", year=" + year +

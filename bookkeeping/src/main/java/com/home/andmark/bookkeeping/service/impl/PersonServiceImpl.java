@@ -27,16 +27,16 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDTO save(PersonDTO personDTO) {
+    public void save(PersonDTO personDTO) {
         Person person = mapper.map(personDTO, Person.class);
-        return mapper.map(personDAO.save(person), PersonDTO.class);
+        personDAO.save(person);
     }
 
     @Override
     public PersonDTO read(int id) {
         Person person = personDAO.read(id);
-        List<Book> books = bookDAO.getBooksByPersonId(id);
-        person.setBooks(books);
+//        List<Book> books = bookDAO.getBooksByPersonId(id);
+//        person.setBooks(books);
         PersonDTO personDTO = mapper.map(person, PersonDTO.class);
         return personDTO;
     }
@@ -48,14 +48,13 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDTO update(int id, PersonDTO personDTO) {
-        Person updated = personDAO.update(id, mapper.map(personDTO, Person.class));
-        return mapper.map(updated, PersonDTO.class);
+    public void update(int id, PersonDTO personDTO) {
+        personDAO.update(id, mapper.map(personDTO, Person.class));
     }
 
     @Override
-    public int delete(int id) {
-        return personDAO.delete(id);
+    public void delete(int id) {
+        personDAO.delete(id);
     }
 
     private List<PersonDTO> mapListOfEntityToDTO(List<Person> all) {

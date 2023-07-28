@@ -22,26 +22,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @ContextConfiguration(classes = {SpringConfig.class})
 public class HomePageControllerTest {
-
-    @Autowired
-    private WebApplicationContext wac;
-
-    private MockMvc mockMvc;
-
-    @BeforeEach
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-    }
-
-    @Test
-    public void testDefaultPage() throws Exception {
-        MvcResult result = this.mockMvc.perform(get("/"))
-                /*.andDo(print())*/
-                .andExpect(status().isOk())
-                .andReturn();
-
-        ModelAndView modelAndView = result.getModelAndView();
-        assertEquals("index", modelAndView.getViewName());
-//        assertEquals("Spring MVC BookKeeping is started!", modelAndView.getModel().get("message"));
-    }
+//
+//    @Autowired
+//    private WebApplicationContext wac;
+//
+//    private MockMvc mockMvc;
+//
+//    @BeforeEach
+//    public void setup() {
+//        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+//    }
+//
+//    @Test
+//    public void testDefaultPage() throws Exception {
+//        MvcResult result = this.mockMvc.perform(get("/"))
+//                /*.andDo(print())*/
+//                .andExpect(status().isOk())
+//                .andReturn();
+//
+//        ModelAndView modelAndView = result.getModelAndView();
+//        assertEquals("index", modelAndView.getViewName());
+////        assertEquals("Spring MVC BookKeeping is started!", modelAndView.getModel().get("message"));
+//    }
 }

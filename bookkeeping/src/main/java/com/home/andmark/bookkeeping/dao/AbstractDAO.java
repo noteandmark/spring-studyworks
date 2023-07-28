@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface AbstractDAO<T> {
 
-    T save(T t);
+    void save(T t);
 
     T read(int id);
 
     List<T> readAll();
 
-    T update(int id, T t);
+    void update(int id, T t);
 
-    int delete(int id);
+    void delete(int id);
 
 }
 
