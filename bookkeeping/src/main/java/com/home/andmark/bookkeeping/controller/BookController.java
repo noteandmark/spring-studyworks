@@ -29,7 +29,7 @@ public class BookController {
         this.bookValidator = bookValidator;
     }
 
-    @GetMapping("/index")
+    @GetMapping({"/index.html","/index"})
     public String showAll(Model model) {
         model.addAttribute("books", bookService.readAll());
         return "templates/books/index";
@@ -45,10 +45,10 @@ public class BookController {
         }
         // Get the list of all persons
         List<PersonDTO> persons = personService.readAll();
-        if (book.getPersonId() != null) {
+        if (book.getOwner() != null) {
             // Find the person with the corresponding personId
             assignedPerson = persons.stream()
-                    .filter(person -> person.getId() == book.getPersonId())
+                    .filter(person -> person.getId() == book.getOwner().getId())
                     .findFirst()
                     .orElse(null);
         }
@@ -59,7 +59,7 @@ public class BookController {
         return "templates/books/show";
     }
 
-    @GetMapping("/new")
+    @GetMapping({"/new","new.html"})
     public String newBook(@ModelAttribute("book") BookDTO bookDTO) {
         return "templates/books/new";
     }
@@ -109,14 +109,14 @@ public class BookController {
             // Handle book or person not found, redirect to an error page or show an error message
             return "redirect:/error";
         }
-        if (book.getPersonId() != null) {
+        if (book.getOwner() != null) {
             // Book is already assigned to a person, handle this case if needed
             // You can redirect to an error page or show a message indicating that the book is already assigned
             return "redirect:/error";
         }
 
-        book.setPersonId(person.getId());
-        bookService.assignBookToPerson(bookId, personId);
+//        book.setPersonId(person.getId());
+//        bookService.assignBookToPerson(bookId, personId);
         return "redirect:/books/" + bookId;
     }
 

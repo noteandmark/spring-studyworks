@@ -24,7 +24,7 @@ public class PersonController {
         this.personValidator = personValidator;
     }
 
-    @GetMapping("/index.html")
+    @GetMapping({"/index.html","/index"})
     public String showAll(Model model) {
         model.addAttribute("persons", personService.readAll());
         return "templates/persons/index";
@@ -36,7 +36,7 @@ public class PersonController {
         return "templates/persons/show";
     }
 
-    @GetMapping("/new")
+    @GetMapping({"/new","new.html"})
     public String newPerson(@ModelAttribute("person") PersonDTO personDTO) {
         return "templates/persons/new";
     }

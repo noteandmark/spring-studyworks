@@ -12,9 +12,9 @@
 
 <h1>A page with a person info</h1>
 
-<p th:text="${'Name, Patronymic: ' + person.getName() + ' ' + person.getPatronymic()}">VALUE</p>
-<p th:text="${'Surname: ' + person.getSurname()}">VALUE</p>
-<p th:text="${'Birthday: ' + person.getBirthday()}">VALUE</p>
+<p style="padding-left: 20px"; th:text="${'Name, Patronymic: ' + person.getName() + ' ' + person.getPatronymic()}">VALUE</p>
+<p style="padding-left: 20px"; th:text="${'Surname: ' + person.getSurname()}">VALUE</p>
+<p style="padding-left: 20px"; th:text="${'Birthday: ' + person.getBirthday()}">VALUE</p>
 <input type="hidden" th:value="${person.getId()}" />
 
 <a href="/persons/index">Back to All Persons</a>

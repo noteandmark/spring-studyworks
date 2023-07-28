@@ -12,12 +12,12 @@
 
 <h1>Book Details</h1>
 
-<p th:text="${'Title: ' + book.getTitle()}">VALUE</p>
-<p th:text="${'Author: ' + book.getAuthor()}">VALUE</p>
-<p th:text="${'Year: ' + book.getYear()}">VALUE</p>
+<p style="padding-left: 20px"; th:text="${'Title: ' + book.getTitle()}">VALUE</p>
+<p style="padding-left: 20px"; th:text="${'Author: ' + book.getAuthor()}">VALUE</p>
+<p style="padding-left: 20px"; th:text="${'Year: ' + book.getYear()}">VALUE</p>
 
 <!-- Display the drop-down list only if the book is free (personId is null) -->
-<th:block th:if="${book.getPersonId() == null}">
+<th:block th:if="${book.getOwner() == null}">
     <form th:method="POST" th:action="@{/books/{id}/assign(id=${book.getId()})}">
         <label for="person">Assign Book to:</label>
         <select id="person" name="person">
@@ -32,7 +32,7 @@
 </th:block>
 
 <!-- Display this text if the book is not free -->
-<p th:unless="${book.getPersonId() == null}">This book is currently assigned to:
+<p th:unless="${book.getOwner() == null}">This book is currently assigned to:
     <span th:text="${assignedPerson.getName() + ' '
     + assignedPerson.getPatronymic() + ' '
     +assignedPerson.getSurname() }"></span>

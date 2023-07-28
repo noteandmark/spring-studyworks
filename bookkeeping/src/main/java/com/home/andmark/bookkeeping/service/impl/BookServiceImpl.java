@@ -1,8 +1,8 @@
 package com.home.andmark.bookkeeping.service.impl;
 
 import com.home.andmark.bookkeeping.dao.BookDAO;
-import com.home.andmark.bookkeeping.dao.impl.BookDAOImpl;
 import com.home.andmark.bookkeeping.dto.BookDTO;
+import com.home.andmark.bookkeeping.dto.PersonDTO;
 import com.home.andmark.bookkeeping.model.Book;
 import com.home.andmark.bookkeeping.service.BookService;
 import org.modelmapper.ModelMapper;
@@ -38,8 +38,7 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<BookDTO> readAll() {
-        List<Book> books = bookDAO.readAll();
-        return mapListOfEntityToDTO(books);
+        return mapListOfEntityToDTO(bookDAO.readAll());
     }
 
     @Override
@@ -58,18 +57,37 @@ public class BookServiceImpl implements BookService{
     }
 
     public void assignBookToPerson(int bookId, int personId) {
-//
+//        BookDTO bookDTO = read(bookId);
+//        if (bookDTO != null) {
+//            PersonDTO personDTO = read(personId);
+//            if (personDTO != null) {
+//                bookDTO.setOwner(personDTO);
+//                update(bookId, bookDTO);
+//            } else {
+//                // Handle the case when the person with the given ID is not found
+//                // You can throw an exception or handle it based on your requirements
+//            }
+//        } else {
+//            // Handle the case when the book with the given ID is not found
+//            // You can throw an exception or handle it based on your requirements
+//        }
 //        Book book = bookDAO.read(bookId);
 //
 //        book.setPersonId(personId);
 //        bookDAO.update(bookId, book);
     }
 
+    private PersonDTO readPerson(int personId) {
+        // Implement the logic to read a person by their ID using the PersonDAO or PersonService
+        // and return the corresponding PersonDTO
+        return null;
+    }
+
     public void releaseBook(int id) {
-//        BookDTO book = read(id);
-//        if (book != null) {
-//            book.setPersonId(null);
-//            update(id, book);
-//        }
+        BookDTO bookDTO = read(id);
+        if (bookDTO != null) {
+            bookDTO.setOwner(null);
+            update(id, bookDTO);
+        }
     }
 }

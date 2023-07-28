@@ -1,5 +1,7 @@
 package com.home.andmark.bookkeeping.dto;
 
+import com.home.andmark.bookkeeping.model.Person;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -7,7 +9,7 @@ import java.util.Objects;
 
 public class BookDTO {
     private int id;
-    private Integer personId;
+    private Person owner;
 
     @NotEmpty(message = "Title should not be empty")
     @Size(min = 2, max = 200, message = "Title should be between 2 and 200 characters")
@@ -20,8 +22,7 @@ public class BookDTO {
     @Min(value = 0, message = "Year should be greater than 0")
     int year;
 
-    public BookDTO(Integer personId, String title, String author, int year) {
-        this.personId = personId;
+    public BookDTO(String title, String author, int year) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -39,12 +40,12 @@ public class BookDTO {
         this.id = id;
     }
 
-    public Integer getPersonId() {
-        return personId;
+    public Person getOwner() {
+        return owner;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 
     public String getTitle() {
@@ -76,19 +77,19 @@ public class BookDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookDTO bookDTO = (BookDTO) o;
-        return id == bookDTO.id && year == bookDTO.year && Objects.equals(personId, bookDTO.personId) && Objects.equals(title, bookDTO.title) && Objects.equals(author, bookDTO.author);
+        return id == bookDTO.id && year == bookDTO.year && Objects.equals(owner, bookDTO.owner) && Objects.equals(title, bookDTO.title) && Objects.equals(author, bookDTO.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, personId, title, author, year);
+        return Objects.hash(id, owner, title, author, year);
     }
 
     @Override
     public String toString() {
         return "BookDTO{" +
                 "id=" + id +
-                ", personId=" + personId +
+                ", owner=" + owner +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", year=" + year +
