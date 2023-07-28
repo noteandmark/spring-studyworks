@@ -26,3 +26,5 @@ Thymeleaf, Bootstrap
 
 
 Overall, web application utilizes a modern Java Spring stack with Thymeleaf for templating and PostgreSQL as the database. It ensures data integrity and validation through the use of Hibernate Validator, and testing is facilitated using JUnit 5 and Mockito. Additionally, Bootstrap provides a clean and responsive user interface, enhancing the overall user experience.
+
+*Branch dev-jdbctemplate - realise with Spring and JdbcTemplate*
