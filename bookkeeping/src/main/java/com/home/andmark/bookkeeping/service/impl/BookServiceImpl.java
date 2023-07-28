@@ -1,6 +1,7 @@
 package com.home.andmark.bookkeeping.service.impl;
 
-import com.home.andmark.bookkeeping.dao.impl.JdbcBookDAOImpl;
+import com.home.andmark.bookkeeping.dao.BookDAO;
+import com.home.andmark.bookkeeping.dao.impl.BookDAOImpl;
 import com.home.andmark.bookkeeping.dto.BookDTO;
 import com.home.andmark.bookkeeping.model.Book;
 import com.home.andmark.bookkeeping.service.BookService;
@@ -12,12 +13,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class BookServiceImpl implements BookService {
-    private final JdbcBookDAOImpl bookDAO;
+public class BookServiceImpl implements BookService{
+    private final BookDAO bookDAO;
     private final ModelMapper mapper;
 
     @Autowired
-    public BookServiceImpl(JdbcBookDAOImpl bookDAO, ModelMapper mapper) {
+    public BookServiceImpl(BookDAO bookDAO, ModelMapper mapper) {
         this.bookDAO = bookDAO;
         this.mapper = mapper;
     }

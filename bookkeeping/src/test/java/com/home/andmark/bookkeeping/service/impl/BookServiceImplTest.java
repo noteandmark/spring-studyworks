@@ -1,29 +1,13 @@
 package com.home.andmark.bookkeeping.service.impl;
 
 import com.home.andmark.bookkeeping.config.SpringConfig;
-import com.home.andmark.bookkeeping.dao.impl.JdbcBookDAOImpl;
-import com.home.andmark.bookkeeping.dto.BookDTO;
-import com.home.andmark.bookkeeping.model.Book;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 
 @ExtendWith(SpringExtension.class)

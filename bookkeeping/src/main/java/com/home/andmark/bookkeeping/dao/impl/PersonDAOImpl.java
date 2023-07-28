@@ -12,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-public class JdbcPersonDAOImpl implements PersonDAO {
+public class PersonDAOImpl implements PersonDAO{
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public JdbcPersonDAOImpl(SessionFactory sessionFactory) {
+    public PersonDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -28,14 +28,16 @@ public class JdbcPersonDAOImpl implements PersonDAO {
 
     @Override
     public Person read(int id) {
+        Session session = sessionFactory.getCurrentSession();
+
         return null;
     }
 
+    @Transactional(readOnly = true)
     @Override
-    @Transactional
     public List<Person> readAll() {
         Session session = sessionFactory.getCurrentSession();
-        List<Person> people = session.createQuery("select p from person p",
+        List<Person> people = session.createQuery("select p from Person p",
                 Person.class).getResultList();
         return people;
     }
@@ -44,7 +46,6 @@ public class JdbcPersonDAOImpl implements PersonDAO {
     public void update(int id, Person updatedPerson) {
 
     }
-
 
     @Override
     public void delete(int id) {

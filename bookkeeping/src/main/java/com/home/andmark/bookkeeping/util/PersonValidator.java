@@ -2,6 +2,7 @@ package com.home.andmark.bookkeeping.util;
 
 import com.home.andmark.bookkeeping.dto.PersonDTO;
 import com.home.andmark.bookkeeping.service.PersonService;
+import com.home.andmark.bookkeeping.service.impl.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -9,10 +10,10 @@ import org.springframework.validation.Validator;
 
 @Component
 public class PersonValidator implements Validator {
-    private final PersonService personService;
+    private final PersonServiceImpl personService;
 
     @Autowired
-    public PersonValidator(PersonService personService) {
+    public PersonValidator(PersonServiceImpl personService) {
         this.personService = personService;
     }
 

@@ -30,7 +30,7 @@ import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({"com.home.andmark.bookkeeping"})
+@ComponentScan("com.home.andmark.bookkeeping")
 @PropertySource("classpath:hibernate.properties")
 @EnableTransactionManagement
 public class SpringConfig implements WebMvcConfigurer {
@@ -137,7 +137,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.home.andmark.bookkeeping.models");
+        sessionFactory.setPackagesToScan("com.home.andmark.bookkeeping.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;

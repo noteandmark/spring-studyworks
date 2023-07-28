@@ -1,9 +1,10 @@
 package com.home.andmark.bookkeeping.service.impl;
 
-import com.home.andmark.bookkeeping.dao.impl.JdbcBookDAOImpl;
-import com.home.andmark.bookkeeping.dao.impl.JdbcPersonDAOImpl;
+import com.home.andmark.bookkeeping.dao.BookDAO;
+import com.home.andmark.bookkeeping.dao.PersonDAO;
+import com.home.andmark.bookkeeping.dao.impl.BookDAOImpl;
+import com.home.andmark.bookkeeping.dao.impl.PersonDAOImpl;
 import com.home.andmark.bookkeeping.dto.PersonDTO;
-import com.home.andmark.bookkeeping.model.Book;
 import com.home.andmark.bookkeeping.model.Person;
 import com.home.andmark.bookkeeping.service.PersonService;
 import org.modelmapper.ModelMapper;
@@ -15,12 +16,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class PersonServiceImpl implements PersonService {
-    private final JdbcPersonDAOImpl personDAO;
-    private final JdbcBookDAOImpl bookDAO;
+    private final PersonDAO personDAO;
+    private final BookDAO bookDAO;
     private final ModelMapper mapper;
 
     @Autowired
-    public PersonServiceImpl(JdbcPersonDAOImpl personDAO, JdbcBookDAOImpl bookDAO, ModelMapper mapper) {
+    public PersonServiceImpl(PersonDAO personDAO, BookDAO bookDAO, ModelMapper mapper) {
         this.personDAO = personDAO;
         this.bookDAO = bookDAO;
         this.mapper = mapper;
@@ -43,7 +44,10 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonDTO> readAll() {
+        System.out.println("into readAll");
         List<Person> people = personDAO.readAll();
+        System.out.println("people:");
+        System.out.println(people);
         return mapListOfEntityToDTO(people);
     }
 

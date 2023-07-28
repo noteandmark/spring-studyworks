@@ -1,15 +1,8 @@
 package com.home.andmark.bookkeeping.dao.impl;
 
-import com.home.andmark.bookkeeping.model.Person;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import javax.sql.DataSource;
-import static org.junit.jupiter.api.Assertions.*;
 
-@Import(JdbcPersonDAOImpl.class)
+@Import(PersonDAOImpl.class)
 class JdbcPersonDAOImplTest {
 //    private JdbcPersonDAOImpl jdbcPersonDAOImpl;
 //

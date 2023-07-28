@@ -13,6 +13,7 @@ public class HomePageController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String welcome(ModelMap model) {
+        System.out.println("Hello!");
 
 //        model.addAttribute("message", "Spring MVC BookKeeping is started!");
 

@@ -20,8 +20,7 @@ public class BookDTO {
     @Min(value = 0, message = "Year should be greater than 0")
     int year;
 
-    public BookDTO(int id, Integer personId, String title, String author, int year) {
-        this.id = id;
+    public BookDTO(Integer personId, String title, String author, int year) {
         this.personId = personId;
         this.title = title;
         this.author = author;
