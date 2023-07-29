@@ -4,6 +4,7 @@ import com.home.andmark.bookkeeping.dao.BookDAO;
 import com.home.andmark.bookkeeping.dto.BookDTO;
 import com.home.andmark.bookkeeping.dto.PersonDTO;
 import com.home.andmark.bookkeeping.model.Book;
+import com.home.andmark.bookkeeping.model.Person;
 import com.home.andmark.bookkeeping.service.BookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,11 @@ public class BookServiceImpl implements BookService{
                 .collect(Collectors.toList());
     }
 
-    public void assignBookToPerson(int bookId, int personId) {
+    public void assignBookToPerson(BookDTO bookdTO, PersonDTO personDTO) {
+
+        bookdTO.setOwner(mapper.map(personDTO, Person.class));
+        bookDAO.update(bookdTO.getId(),mapper.map(bookdTO,Book.class));
+
 //        BookDTO bookDTO = read(bookId);
 //        if (bookDTO != null) {
 //            PersonDTO personDTO = read(personId);
@@ -84,10 +89,10 @@ public class BookServiceImpl implements BookService{
     }
 
     public void releaseBook(int id) {
-        BookDTO bookDTO = read(id);
+        BookDTO bookDTO = mapper.map(bookDAO.read(id), BookDTO.class);
         if (bookDTO != null) {
             bookDTO.setOwner(null);
-            update(id, bookDTO);
+            bookDAO.update(id, mapper.map(bookDTO, Book.class));
         }
     }
 }

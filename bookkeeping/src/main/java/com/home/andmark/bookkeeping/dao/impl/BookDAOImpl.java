@@ -51,6 +51,7 @@ public class BookDAOImpl implements BookDAO {
         bookToBeUpdated.setTitle(updatedBook.getTitle());
         bookToBeUpdated.setAuthor(updatedBook.getAuthor());
         bookToBeUpdated.setYear(updatedBook.getYear());
+        bookToBeUpdated.setOwner(updatedBook.getOwner());
     }
 
     @Override
