@@ -12,9 +12,9 @@
 
 <h1>Book Details</h1>
 
-<p style="padding-left: 20px" ; th:text="${'Title: ' + book.getTitle()}">VALUE</p>
-<p style="padding-left: 20px" ; th:text="${'Author: ' + book.getAuthor()}">VALUE</p>
-<p style="padding-left: 20px" ; th:text="${'Year: ' + book.getYear()}">VALUE</p>
+<p style="padding-left: 20px" th:text="${'Title: ' + book.getTitle()}">VALUE</p>
+<p style="padding-left: 20px" th:text="${'Author: ' + book.getAuthor()}">VALUE</p>
+<p style="padding-left: 20px" th:text="${'Year: ' + book.getYear()}">VALUE</p>
 
 <!-- Display the drop-down list only if the book is free (personId is null) -->
 <th:block th:if="${book.getOwner() == null}">
@@ -28,6 +28,7 @@
         </select>
         <input type="submit" value="Assign Book"/>
     </form>
+
     <h4>The library book is in and free</h4>
 </th:block>
 
