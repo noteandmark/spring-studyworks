@@ -6,9 +6,9 @@ public interface AbstractService<T> {
 
     void save(T t);
 
-    T read(int id);
+    T findOne(int id);
 
-    List<T> readAll();
+    List<T> findAll();
 
     void update(int id, T t);
 

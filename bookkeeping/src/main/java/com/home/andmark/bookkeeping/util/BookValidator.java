@@ -10,10 +10,10 @@ import org.springframework.validation.Validator;
 
 @Component
 public class BookValidator implements Validator {
-    private final BookServiceImpl bookService;
+    private final BookService bookService;
 
     @Autowired
-    public BookValidator(BookServiceImpl bookService) {
+    public BookValidator(BookService bookService) {
         this.bookService = bookService;
     }
 

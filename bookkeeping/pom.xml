@@ -20,6 +20,7 @@
         <junit.version>5.9.0</junit.version>
         <h2.version>1.4.200</h2.version>
         <hibernate.version>5.4.28.Final</hibernate.version>
+        <spring.data.jpa>2.4.7</spring.data.jpa>
     </properties>
 
     <dependencies>
@@ -53,6 +54,11 @@
         </dependency>
 
         <!--Database dependencies -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring.data.jpa}</version>
+        </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
