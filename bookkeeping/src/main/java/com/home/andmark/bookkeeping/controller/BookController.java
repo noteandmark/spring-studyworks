@@ -101,21 +101,7 @@ public class BookController {
 
     @PostMapping("/{id}/assign")
     public String assignBookToPerson(@PathVariable("id") int bookId, @RequestParam("person") int personId) {
-        BookDTO bookDTO = bookService.findOne(bookId);
-        // Assign the book to the selected person
-        PersonDTO personDTO = personService.findOne(personId);
-
-        if (bookDTO == null || personDTO == null) {
-            // Handle book or person not found, redirect to an error page or show an error message
-            return "redirect:/error";
-        }
-        if (bookDTO.getOwner() != null) {
-            // Book is already assigned to a person, handle this case if needed
-            // You can redirect to an error page or show a message indicating that the book is already assigned
-            return "redirect:/error";
-        }
-
-        bookService.assignBookToPerson(bookDTO, personDTO);
+        bookService.assignBookToPerson(bookId, personId);
         return "redirect:/books/" + bookId;
     }
 

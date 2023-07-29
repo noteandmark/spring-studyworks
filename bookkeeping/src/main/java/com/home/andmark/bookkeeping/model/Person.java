@@ -1,6 +1,9 @@
 package com.home.andmark.bookkeeping.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,17 +25,22 @@ public class Person {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "birthday")
-    int birthday;
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dateOfBirth;
+
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Book> books;
 
-    public Person(String name, String patronymic, String surname, int birthday) {
+    public Person(String name, String patronymic, String surname) {
         this.name = name;
         this.patronymic = patronymic;
         this.surname = surname;
-        this.birthday = birthday;
     }
 
     public Person() {
@@ -79,12 +87,33 @@ public class Person {
         this.surname = surname;
     }
 
-    public int getBirthday() {
-        return birthday;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthday(int birthday) {
-        this.birthday = birthday;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id == person.id && Objects.equals(name, person.name) && Objects.equals(patronymic, person.patronymic) && Objects.equals(surname, person.surname) && Objects.equals(dateOfBirth, person.dateOfBirth) && Objects.equals(createdAt, person.createdAt) && Objects.equals(books, person.books);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, patronymic, surname, dateOfBirth, createdAt, books);
     }
 
     @Override
@@ -94,20 +123,9 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", patronymic='" + patronymic + '\'' +
                 ", surname='" + surname + '\'' +
-                ", birthday=" + birthday +
+                ", dateOfBirth=" + dateOfBirth +
+                ", createdAt=" + createdAt +
+                ", books=" + books +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return id == person.id && birthday == person.birthday && Objects.equals(name, person.name) && Objects.equals(patronymic, person.patronymic) && Objects.equals(surname, person.surname);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, patronymic, surname, birthday);
     }
 }

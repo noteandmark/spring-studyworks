@@ -1,9 +1,14 @@
 package com.home.andmark.bookkeeping.dto;
 
 import com.home.andmark.bookkeeping.model.Book;
+
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,16 +27,16 @@ public class PersonDTO {
     @Size(min = 2, max = 100, message = "Surname should be between 2 and 100 characters")
     private String surname;
 
-    @Min(value = 1900, message = "Birthday should be greater than 1900")
-    int birthday;
+    private Date dateOfBirth;
+
+    private Date createdAt;
 
     private List<Book> books;
 
-    public PersonDTO(String name, String patronymic, String surname, int birthday) {
+    public PersonDTO(String name, String patronymic, String surname) {
         this.name = name;
         this.patronymic = patronymic;
         this.surname = surname;
-        this.birthday = birthday;
     }
 
     public PersonDTO() {
@@ -78,12 +83,33 @@ public class PersonDTO {
         this.surname = surname;
     }
 
-    public int getBirthday() {
-        return birthday;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthday(int birthday) {
-        this.birthday = birthday;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonDTO personDTO = (PersonDTO) o;
+        return id == personDTO.id && Objects.equals(name, personDTO.name) && Objects.equals(patronymic, personDTO.patronymic) && Objects.equals(surname, personDTO.surname) && Objects.equals(dateOfBirth, personDTO.dateOfBirth) && Objects.equals(createdAt, personDTO.createdAt) && Objects.equals(books, personDTO.books);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, patronymic, surname, dateOfBirth, createdAt, books);
     }
 
     @Override
@@ -93,20 +119,9 @@ public class PersonDTO {
                 ", name='" + name + '\'' +
                 ", patronymic='" + patronymic + '\'' +
                 ", surname='" + surname + '\'' +
-                ", birthday=" + birthday +
+                ", dateOfBirth=" + dateOfBirth +
+                ", createdAt=" + createdAt +
+                ", books=" + books +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonDTO personDTO = (PersonDTO) o;
-        return id == personDTO.id && birthday == personDTO.birthday && Objects.equals(name, personDTO.name) && Objects.equals(patronymic, personDTO.patronymic) && Objects.equals(surname, personDTO.surname);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, patronymic, surname, birthday);
     }
 }

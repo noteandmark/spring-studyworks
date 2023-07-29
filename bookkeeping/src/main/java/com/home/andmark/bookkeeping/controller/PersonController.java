@@ -26,7 +26,8 @@ public class PersonController {
 
     @GetMapping({"/index.html","/index"})
     public String showAll(Model model) {
-        model.addAttribute("persons", personService.findAll());
+//        model.addAttribute("persons", personService.findAll());
+        model.addAttribute("persons", personService.findAllDao());
         return "templates/persons/index";
     }
 
