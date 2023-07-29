@@ -58,6 +58,7 @@ public class JdbcPersonDAOImpl implements PersonDAO {
                 },
                 keyHolder);
         person.setId(keyHolder.getKey().intValue());
+
         return person;
     }
 
