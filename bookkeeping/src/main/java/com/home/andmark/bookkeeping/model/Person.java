@@ -1,19 +1,34 @@
 package com.home.andmark.bookkeeping.model;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "person")
 public class Person {
-    private int id;
-    private String name;
-    private String patronymic;
-    private String surname;
-    int birthday;
-    private List<Book> books = new ArrayList<>();
 
-    public Person(int id, String name, String patronymic, String surname, int birthday) {
-        this.id = id;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "patronymic")
+    private String patronymic;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "birthday")
+    int birthday;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<Book> books;
+
+    public Person(String name, String patronymic, String surname, int birthday) {
         this.name = name;
         this.patronymic = patronymic;
         this.surname = surname;

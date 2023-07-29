@@ -18,7 +18,7 @@ public class MyDispatcherServletInitializer
     // services and data sources
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[0];
+        return null;
     }
 
     // controller, view resolver, handler mapping

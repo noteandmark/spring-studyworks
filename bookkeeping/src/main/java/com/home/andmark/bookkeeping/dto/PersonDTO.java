@@ -27,8 +27,7 @@ public class PersonDTO {
 
     private List<Book> books;
 
-    public PersonDTO(int id, String name, String patronymic, String surname, int birthday) {
-        this.id = id;
+    public PersonDTO(String name, String patronymic, String surname, int birthday) {
         this.name = name;
         this.patronymic = patronymic;
         this.surname = surname;

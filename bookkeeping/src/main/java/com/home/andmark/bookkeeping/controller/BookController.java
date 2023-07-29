@@ -2,8 +2,8 @@ package com.home.andmark.bookkeeping.controller;
 
 import com.home.andmark.bookkeeping.dto.BookDTO;
 import com.home.andmark.bookkeeping.dto.PersonDTO;
-import com.home.andmark.bookkeeping.service.impl.BookServiceImpl;
-import com.home.andmark.bookkeeping.service.impl.PersonServiceImpl;
+import com.home.andmark.bookkeeping.service.BookService;
+import com.home.andmark.bookkeeping.service.PersonService;
 import com.home.andmark.bookkeeping.util.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,37 +18,37 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
-    private final BookServiceImpl bookService;
-    private final PersonServiceImpl personService;
+    private final BookService bookService;
+    private final PersonService personService;
     private final BookValidator bookValidator;
 
     @Autowired
-    public BookController(BookServiceImpl bookService, PersonServiceImpl personService, BookValidator bookValidator) {
+    public BookController(BookService bookService, PersonService personService, BookValidator bookValidator) {
         this.bookService = bookService;
         this.personService = personService;
         this.bookValidator = bookValidator;
     }
 
-    @GetMapping("/index")
+    @GetMapping({"/index.html","/index"})
     public String showAll(Model model) {
-        model.addAttribute("books", bookService.readAll());
+        model.addAttribute("books", bookService.findAll());
         return "templates/books/index";
     }
 
     @GetMapping("/{id}")
     public String showBookById(@PathVariable("id") int id, Model model) {
-        BookDTO book = bookService.read(id);
+        BookDTO book = bookService.findOne(id);
         PersonDTO assignedPerson = new PersonDTO();
         if (book == null) {
             // Handle book not found, redirect to an error page or show an error message
             return "redirect:/error";
         }
         // Get the list of all persons
-        List<PersonDTO> persons = personService.readAll();
-        if (book.getPersonId() != null) {
+        List<PersonDTO> persons = personService.findAll();
+        if (book.getOwner() != null) {
             // Find the person with the corresponding personId
             assignedPerson = persons.stream()
-                    .filter(person -> person.getId() == book.getPersonId())
+                    .filter(person -> person.getId() == book.getOwner().getId())
                     .findFirst()
                     .orElse(null);
         }
@@ -59,7 +59,7 @@ public class BookController {
         return "templates/books/show";
     }
 
-    @GetMapping("/new")
+    @GetMapping({"/new","new.html"})
     public String newBook(@ModelAttribute("book") BookDTO bookDTO) {
         return "templates/books/new";
     }
@@ -79,7 +79,7 @@ public class BookController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("book", bookService.read(id));
+        model.addAttribute("book", bookService.findOne(id));
         return "templates/books/edit";
     }
 
@@ -101,22 +101,21 @@ public class BookController {
 
     @PostMapping("/{id}/assign")
     public String assignBookToPerson(@PathVariable("id") int bookId, @RequestParam("person") int personId) {
-        BookDTO book = bookService.read(bookId);
+        BookDTO bookDTO = bookService.findOne(bookId);
         // Assign the book to the selected person
-        PersonDTO person = personService.read(personId);
+        PersonDTO personDTO = personService.findOne(personId);
 
-        if (book == null || person == null) {
+        if (bookDTO == null || personDTO == null) {
             // Handle book or person not found, redirect to an error page or show an error message
             return "redirect:/error";
         }
-        if (book.getPersonId() != null) {
+        if (bookDTO.getOwner() != null) {
             // Book is already assigned to a person, handle this case if needed
             // You can redirect to an error page or show a message indicating that the book is already assigned
             return "redirect:/error";
         }
 
-        book.setPersonId(person.getId());
-        bookService.assignBookToPerson(bookId, personId);
+        bookService.assignBookToPerson(bookDTO, personDTO);
         return "redirect:/books/" + bookId;
     }
 

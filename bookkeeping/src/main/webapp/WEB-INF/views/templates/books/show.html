@@ -12,12 +12,12 @@
 
 <h1>Book Details</h1>
 
-<p th:text="${'Title: ' + book.getTitle()}">VALUE</p>
-<p th:text="${'Author: ' + book.getAuthor()}">VALUE</p>
-<p th:text="${'Year: ' + book.getYear()}">VALUE</p>
+<p style="padding-left: 20px" th:text="${'Title: ' + book.getTitle()}">VALUE</p>
+<p style="padding-left: 20px" th:text="${'Author: ' + book.getAuthor()}">VALUE</p>
+<p style="padding-left: 20px" th:text="${'Year: ' + book.getYear()}">VALUE</p>
 
 <!-- Display the drop-down list only if the book is free (personId is null) -->
-<th:block th:if="${book.getPersonId() == null}">
+<th:block th:if="${book.getOwner() == null}">
     <form th:method="POST" th:action="@{/books/{id}/assign(id=${book.getId()})}">
         <label for="person">Assign Book to:</label>
         <select id="person" name="person">
@@ -28,18 +28,19 @@
         </select>
         <input type="submit" value="Assign Book"/>
     </form>
+
     <h4>The library book is in and free</h4>
 </th:block>
 
 <!-- Display this text if the book is not free -->
-<p th:unless="${book.getPersonId() == null}">This book is currently assigned to:
-    <span th:text="${assignedPerson.getName() + ' '
-    + assignedPerson.getPatronymic() + ' '
-    +assignedPerson.getSurname() }"></span>
-<form th:method="POST" th:action="@{/books/{id}/release(id=${book.getId()})}">
-    <input type="submit" value="Release Book"/>
-</form>
-</p>
+<th:block th:unless="${book.getOwner() == null}">
+    <form th:method="POST" th:action="@{/books/{id}/release(id=${book.getId()})}">
+        <span th:text="${assignedPerson.getName() + ' '
+        + assignedPerson.getPatronymic() + ' '
+        +assignedPerson.getSurname() }"></span>
+        <input type="submit" value="Release Book"/>
+    </form>
+</th:block>
 
 <!-- Link to go back to the list of all books -->
 <a href="/books/index">Back to All Books</a>
@@ -49,7 +50,7 @@
 <br/>
 <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
     <input type="submit" value="Delete"/>
-
 </form>
+
 </body>
 </html>
