@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Search</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Main Menu</a>
+</nav>
+
+<h1>Book Search</h1>
+
+<form th:method="POST" th:action="@{/books/search}">
+    <p>Enter initial letters of the book title:</p>
+    <input type="text" name="titleInitials" required/>
+    <br/>
+    <input type="submit" value="Search"/>
+</form>
+
+<div th:if="${books}">
+    <div th:if="${books.isEmpty()}">
+        <span>No books were found.</span>
+    </div>
+
+    <div th:each="book : ${books}">
+        <h2>Found Book:</h2>
+        <p>Title: <span th:text="${book.getTitle()}"></span></p>
+        <p>Author: <span th:text="${book.getAuthor()}"></span></p>
+        <p>Year: <span th:text="${book.getYear()}"></span></p>
+        <div th:if="${book.getOwner() != null}">
+            <span>Current Owner: </span>
+            <span th:text="${book.getOwner().getSurname()}">Surname owner</span>
+        </div>
+        <div th:if="${book.getOwner() == null}">
+            <span>Book is free</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

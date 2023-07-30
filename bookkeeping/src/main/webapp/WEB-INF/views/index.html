@@ -45,6 +45,7 @@
                 A list of all the books
             </button>
         </div>
+        <a style="padding-left: 20px" th:href="@{/books(sort_by_year=true)}">Show all books sorted by Year</a>
         <br/>
         <div class="container">
             <button class="btn btn-primary" onclick="window.location.href='/books/new.html'">
@@ -52,6 +53,11 @@
             </button>
         </div>
         <br/>
+        <div class="container">
+            <button class="btn btn-primary" onclick="window.location.href='/books/search.html'">
+                Search book
+            </button>
+        </div>
     </div>
 
     <!-- Boostrap core css -->

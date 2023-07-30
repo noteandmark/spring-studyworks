@@ -17,4 +17,6 @@ public interface BooksRepository extends JpaRepository<Book, Integer> {
 
     @Query("SELECT COUNT(b) FROM Book b")
     int countAllBooks();
+
+    List<Book> findByTitleStartingWith(String titleInitials);
 }

@@ -33,12 +33,10 @@
     </p>
 
     <p>Page:
-        <span th:text="${currentPage + 1}"></span>
+        <span th:text="${currentPage + 1}"></span> of <span th:text="${totalPages}"></span>
     </p>
 
     <p>
-<!--        <a th:if="${currentPage > 0}" th:href="@{/books?page=${currentPage - 1}&amp;books_per_page=${selectedPerPage}}">Previous</a>-->
-<!--        <a th:if="${hasNextPage}" th:href="@{/books?page=${currentPage + 1}&amp;books_per_page=${selectedPerPage}}">Next</a>-->
         <a th:if="${currentPage > 0}" th:href="@{/books(page=${currentPage -1}, books_per_page=${selectedPerPage})}">Previous</a>
         <a th:if="${hasNextPage}" th:href="@{/books(page=${currentPage + 1}, books_per_page=${selectedPerPage})}">Next</a>
     </p>

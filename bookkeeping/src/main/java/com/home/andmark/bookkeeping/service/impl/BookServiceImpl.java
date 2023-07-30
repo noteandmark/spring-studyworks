@@ -10,6 +10,7 @@ import com.home.andmark.bookkeeping.service.BookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,8 +50,20 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<BookDTO> findAllPaginated(int page, int booksPerPage) {
-        Page<Book> bookPage = booksRepository.findAll(PageRequest.of(page, booksPerPage));
-        return mapListOfEntityToDTO(bookPage.getContent());
+//        Page<Book> bookPage = booksRepository.findAll(PageRequest.of(page, booksPerPage));
+        List<Book> bookPage = booksRepository.findAll(PageRequest.of(page, booksPerPage,Sort.by("year"))).getContent();
+        return mapListOfEntityToDTO(bookPage);
+    }
+
+    @Override
+    public List<BookDTO> findAllSortedByYear() {
+        List<Book> books = booksRepository.findAll(Sort.by(Sort.Direction.ASC, "year"));
+        return mapListOfEntityToDTO(books);
+    }
+
+    @Override
+    public List<BookDTO> searchByTitle(String titleInitials) {
+        return mapListOfEntityToDTO(booksRepository.findByTitleStartingWith(titleInitials));
     }
 
     @Override
