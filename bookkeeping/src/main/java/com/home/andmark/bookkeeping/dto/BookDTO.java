@@ -5,6 +5,7 @@ import com.home.andmark.bookkeeping.model.Person;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.Objects;
 
 public class BookDTO {
@@ -21,6 +22,10 @@ public class BookDTO {
 
     @Min(value = 0, message = "Year should be greater than 0")
     int year;
+
+    private Date takenAt;
+
+    private boolean overdue;
 
     public BookDTO(String title, String author, int year) {
         this.title = title;
@@ -72,17 +77,33 @@ public class BookDTO {
         this.year = year;
     }
 
+    public Date getTakenAt() {
+        return takenAt;
+    }
+
+    public void setTakenAt(Date takenAt) {
+        this.takenAt = takenAt;
+    }
+
+    public boolean isOverdue() {
+        return overdue;
+    }
+
+    public void setOverdue(boolean overdue) {
+        this.overdue = overdue;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookDTO bookDTO = (BookDTO) o;
-        return id == bookDTO.id && year == bookDTO.year && Objects.equals(owner, bookDTO.owner) && Objects.equals(title, bookDTO.title) && Objects.equals(author, bookDTO.author);
+        return id == bookDTO.id && year == bookDTO.year && overdue == bookDTO.overdue && Objects.equals(owner, bookDTO.owner) && Objects.equals(title, bookDTO.title) && Objects.equals(author, bookDTO.author) && Objects.equals(takenAt, bookDTO.takenAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, owner, title, author, year);
+        return Objects.hash(id, owner, title, author, year, takenAt, overdue);
     }
 
     @Override
@@ -93,6 +114,8 @@ public class BookDTO {
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", year=" + year +
+                ", takenAt=" + takenAt +
+                ", overdue=" + overdue +
                 '}';
     }
 }

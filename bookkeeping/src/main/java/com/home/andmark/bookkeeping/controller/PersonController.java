@@ -24,9 +24,8 @@ public class PersonController {
         this.personValidator = personValidator;
     }
 
-    @GetMapping({"/index.html","/index"})
+    @GetMapping({"/index.html", "/index"})
     public String showAll(Model model) {
-//        model.addAttribute("persons", personService.findAll());
         model.addAttribute("persons", personService.findAllDao());
         return "templates/persons/index";
     }
@@ -34,10 +33,11 @@ public class PersonController {
     @GetMapping("/{id}")
     public String showPersonById(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personService.findOne(id));
+        model.addAttribute("books", personService.getBooksByPersonId(id));
         return "templates/persons/show";
     }
 
-    @GetMapping({"/new","new.html"})
+    @GetMapping({"/new", "new.html"})
     public String newPerson(@ModelAttribute("person") PersonDTO personDTO) {
         return "templates/persons/new";
     }

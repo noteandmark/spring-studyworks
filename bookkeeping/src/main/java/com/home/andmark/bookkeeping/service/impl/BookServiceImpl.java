@@ -8,18 +8,18 @@ import com.home.andmark.bookkeeping.repository.BooksRepository;
 import com.home.andmark.bookkeeping.repository.PersonsRepository;
 import com.home.andmark.bookkeeping.service.BookService;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
-public class BookServiceImpl implements BookService{
+public class BookServiceImpl implements BookService {
 
     private final BooksRepository booksRepository;
     private final PersonsRepository personsRepository;
@@ -46,12 +46,13 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<BookDTO> findAll() {
-        return mapListOfEntityToDTO(booksRepository.findAll());    }
+        return mapListOfEntityToDTO(booksRepository.findAll());
+    }
 
     @Override
     public List<BookDTO> findAllPaginated(int page, int booksPerPage) {
 //        Page<Book> bookPage = booksRepository.findAll(PageRequest.of(page, booksPerPage));
-        List<Book> bookPage = booksRepository.findAll(PageRequest.of(page, booksPerPage,Sort.by("year"))).getContent();
+        List<Book> bookPage = booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("year"))).getContent();
         return mapListOfEntityToDTO(bookPage);
     }
 
@@ -82,9 +83,10 @@ public class BookServiceImpl implements BookService{
     @Override
     @Transactional
     public void assignBookToPerson(int bookId, int personId) {
-        BookDTO bookDTO = mapper.map(booksRepository.findById(bookId).get(),BookDTO.class);
-        PersonDTO personDTO = mapper.map(personsRepository.findById(personId).get(),PersonDTO.class);
+        BookDTO bookDTO = mapper.map(booksRepository.findById(bookId).get(), BookDTO.class);
+        PersonDTO personDTO = mapper.map(personsRepository.findById(personId).get(), PersonDTO.class);
 
+        bookDTO.setTakenAt(new Date());
         bookDTO.setOwner(mapper.map(personDTO, Person.class));
         booksRepository.save(mapper.map(bookDTO, Book.class));
     }
@@ -95,6 +97,7 @@ public class BookServiceImpl implements BookService{
         BookDTO bookDTO = mapper.map(booksRepository.findById(id), BookDTO.class);
         if (bookDTO != null) {
             bookDTO.setOwner(null);
+            bookDTO.setTakenAt(null);
             booksRepository.save(mapper.map(bookDTO, Book.class));
         }
     }

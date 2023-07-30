@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS person
     name       varchar(100) NOT NULL,
     patronymic varchar(100) NOT NULL,
     surname    varchar(100) NOT NULL,
-    birthday   int check (birthday > 1900)
+    date_of_birth date,
+    created_at    timestamp
 );
 
 CREATE TABLE IF NOT EXISTS book
@@ -13,5 +14,6 @@ CREATE TABLE IF NOT EXISTS book
     person_id int          REFERENCES person (id) ON DELETE SET NULL,
     title     varchar(200) NOT NULL,
     author    varchar(200) NOT NULL,
-    year      int check (year > 0)
+    year      int check (year > 0),
+    taken_at  timestamp
 );

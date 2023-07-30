@@ -33,20 +33,21 @@
 <hr/>
 
 <!-- Check if the person has borrowed any books -->
-<div th:if="${person.books.size() > 0}">
+<div th:if="${books.size() > 0}">
     <h2>Books borrowed by this person:</h2>
     <ul>
         <!-- Iterate over the list of books -->
-        <li th:each="book : ${person.books}">
+        <li th:each="book : ${books}">
             <p th:text="${'Title: ' + book.getTitle()
              + ', Author: ' + book.getAuthor()
-              + ', Year: ' + book.getYear()}"></p>
+              + ', Year: ' + book.getYear()}"
+               th:style="${book.isOverdue() ? 'color: red;' : ''}"></p>
         </li>
     </ul>
 </div>
 
 <!-- If the person has not borrowed any books -->
-<div th:unless="${person.books.size() > 0}">
+<div th:unless="${books.size() > 0}">
     <p>This person has not borrowed any books yet.</p>
 </div>
 
