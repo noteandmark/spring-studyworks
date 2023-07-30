@@ -29,9 +29,32 @@ public class BookController {
         this.bookValidator = bookValidator;
     }
 
-    @GetMapping({"/index.html","/index"})
-    public String showAll(Model model) {
-        model.addAttribute("books", bookService.findAll());
+    @GetMapping({"/index.html","/index",""})
+    public String showAll(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                        @RequestParam(name = "books_per_page", required = false, defaultValue = "0") int booksPerPage,
+                        Model model) {
+        List<BookDTO> books;
+        int totalBooks = bookService.countAllBooks();
+        int totalPages;
+
+        if (booksPerPage > 0) {
+            // If books_per_page is specified, use pagination
+            totalPages = (int) Math.ceil((double) totalBooks / booksPerPage);
+            books = bookService.findAllPaginated(page, booksPerPage);
+        } else {
+            // If books_per_page is not specified, get all books
+            totalPages = 0;
+            books = bookService.findAll();
+        }
+
+        // Determine if there is a next page
+        boolean hasNextPage = page < totalPages - 1;
+
+        model.addAttribute("books", books);
+        model.addAttribute("hasNextPage", hasNextPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("selectedPerPage", booksPerPage);
+
         return "templates/books/index";
     }
 

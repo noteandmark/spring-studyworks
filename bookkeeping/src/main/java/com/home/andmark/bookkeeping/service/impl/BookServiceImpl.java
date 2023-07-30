@@ -8,6 +8,8 @@ import com.home.andmark.bookkeeping.repository.BooksRepository;
 import com.home.andmark.bookkeeping.repository.PersonsRepository;
 import com.home.andmark.bookkeeping.service.BookService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +48,12 @@ public class BookServiceImpl implements BookService{
         return mapListOfEntityToDTO(booksRepository.findAll());    }
 
     @Override
+    public List<BookDTO> findAllPaginated(int page, int booksPerPage) {
+        Page<Book> bookPage = booksRepository.findAll(PageRequest.of(page, booksPerPage));
+        return mapListOfEntityToDTO(bookPage.getContent());
+    }
+
+    @Override
     @Transactional
     public void update(int id, BookDTO updatedBookDTO) {
         updatedBookDTO.setId(id);
@@ -78,6 +86,7 @@ public class BookServiceImpl implements BookService{
         }
     }
 
+
     public List<Book> findByOwner(Person owner) {
         return booksRepository.findByOwner(owner);
     }
@@ -86,6 +95,10 @@ public class BookServiceImpl implements BookService{
         return booksRepository.findByTitle(bookTitle);
     }
 
+    @Override
+    public int countAllBooks() {
+        return booksRepository.countAllBooks();
+    }
 
     private List<BookDTO> mapListOfEntityToDTO(List<Book> all) {
         return all.stream().map(book -> mapper.map(book, BookDTO.class))
