@@ -1,6 +1,7 @@
 package com.home.andmark.bookkeepingsb.model;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 

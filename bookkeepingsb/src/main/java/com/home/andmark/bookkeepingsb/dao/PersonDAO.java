@@ -1,11 +1,12 @@
 package com.home.andmark.bookkeepingsb.dao;
 
 import com.home.andmark.bookkeepingsb.model.Person;
-import jakarta.persistence.EntityManager;
+//import jakarta.persistence.EntityManager;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Component

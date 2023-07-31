@@ -2,10 +2,11 @@ package com.home.andmark.bookkeepingsb.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 
 @Entity
 @Table(name = "person")
@@ -33,6 +34,9 @@ public class Person {
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
+    @Column(name = "password")
+    private String password;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Book> books;
@@ -103,6 +107,14 @@ public class Person {
         this.createdAt = createdAt;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -125,6 +137,7 @@ public class Person {
                 ", surname='" + surname + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", createdAt=" + createdAt +
+                ", password='" + password + '\'' +
                 ", books=" + books +
                 '}';
     }

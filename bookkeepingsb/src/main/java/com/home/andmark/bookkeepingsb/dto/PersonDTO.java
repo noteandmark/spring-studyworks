@@ -1,9 +1,10 @@
 package com.home.andmark.bookkeepingsb.dto;
 
 import com.home.andmark.bookkeepingsb.model.Book;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+//import jakarta.validation.constraints.NotEmpty;
+//import jakarta.validation.constraints.Size;
 
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +27,8 @@ public class PersonDTO {
     private Date dateOfBirth;
 
     private Date createdAt;
+
+    private String password;
 
     private List<Book> books;
 
@@ -95,6 +98,14 @@ public class PersonDTO {
         this.createdAt = createdAt;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,6 +128,7 @@ public class PersonDTO {
                 ", surname='" + surname + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", createdAt=" + createdAt +
+                ", password='" + password + '\'' +
                 ", books=" + books +
                 '}';
     }

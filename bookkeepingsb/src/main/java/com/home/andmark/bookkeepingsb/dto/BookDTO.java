@@ -4,10 +4,11 @@ import com.home.andmark.bookkeepingsb.model.Person;
 
 import java.util.Date;
 import java.util.Objects;
+import javax.validation.constraints.*;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+//import jakarta.validation.constraints.Min;
+//import jakarta.validation.constraints.NotEmpty;
+//import jakarta.validation.constraints.Size;
 
 public class BookDTO {
     private int id;
