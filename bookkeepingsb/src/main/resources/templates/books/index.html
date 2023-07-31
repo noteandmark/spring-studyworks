@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index Book</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Main Menu</a>
+</nav>
+
+<h1>A page with a list of all books</h1>
+
+<div th:each="book : ${books}">
+    <!-- Display book information -->
+    <a th:href="@{/books/{id}(id=${book.getId()})}"
+       th:text="${book.getTitle() + ' , ' + book.getAuthor() +
+       ' , ' + book.getYear()}">book</a>
+</div>
+<br/>
+<div>
+<!-- Pagination controls -->
+    <p>Books per page:
+        <select th:onchange="'window.location.href = `/books?page=0&amp;books_per_page=` + this.value;'">
+            <option value="">-- Select --</option>
+            <option th:each="perPageOption : ${#numbers.sequence(5, 20, 5)}"
+                    th:selected="${perPageOption == selectedPerPage}"
+                    th:value="${perPageOption}"
+                    th:text="${perPageOption}">
+            </option>
+        </select>
+    </p>
+
+    <p>Page:
+        <span th:text="${currentPage + 1}"></span> of <span th:text="${totalPages}"></span>
+    </p>
+
+    <p>
+        <a th:if="${currentPage > 0}" th:href="@{/books(page=${currentPage -1}, books_per_page=${selectedPerPage})}">Previous</a>
+        <a th:if="${hasNextPage}" th:href="@{/books(page=${currentPage + 1}, books_per_page=${selectedPerPage})}">Next</a>
+    </p>
+</div>
+<br/>
+<hr/>
+
+<a href="/books/new">Create new book</a>
+</body>
+</html>

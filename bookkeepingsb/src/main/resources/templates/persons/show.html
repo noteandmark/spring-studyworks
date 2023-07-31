@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Main Menu</a>
+</nav>
+
+<h1>A page with a person info</h1>
+
+<p style="padding-left: 20px" th:text="${'Name, Patronymic: ' + person.getName() + ' ' + person.getPatronymic()}">VALUE</p>
+<p style="padding-left: 20px" th:text="${'Surname: ' + person.getSurname()}">VALUE</p>
+<p style="padding-left: 20px" th:text="${'Date of birth: ' + person.getDateOfBirth()}">VALUE</p>
+<input type="hidden" th:value="${person.getId()}" />
+
+<a href="/persons/index">Back to All Persons</a>
+<br/>
+<br/>
+<!--<a th:href="@{/persons/{id}/edit(id=${person.getId()})}">Edit</a>-->
+<form th:action="@{/persons/{id}/edit(id=${person.getId()})}">
+    <input type="submit" value="Edit"/>
+</form>
+<br/>
+
+<form th:method="DELETE" th:action="@{/persons/{id}(id=${person.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+
+<hr/>
+
+<!-- Check if the person has borrowed any books -->
+<div th:if="${books.size() > 0}">
+    <h2>Books borrowed by this person:</h2>
+    <ul>
+        <!-- Iterate over the list of books -->
+        <li th:each="book : ${books}">
+            <p th:text="${'Title: ' + book.getTitle()
+             + ', Author: ' + book.getAuthor()
+              + ', Year: ' + book.getYear()}"
+               th:style="${book.isOverdue() ? 'color: red;' : ''}"></p>
+        </li>
+    </ul>
+</div>
+
+<!-- If the person has not borrowed any books -->
+<div th:unless="${books.size() > 0}">
+    <p>This person has not borrowed any books yet.</p>
+</div>
+
+</body>
+</html>

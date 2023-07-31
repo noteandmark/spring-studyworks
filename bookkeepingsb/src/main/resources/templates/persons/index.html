@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index Person</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Main Menu</a>
+</nav>
+
+<h1>A page with a list of all people</h1>
+
+<div th:each="person : ${persons}">
+    <a th:href="@{/persons/{id}(id=${person.getId()})}"
+       th:text="${person.getSurname() + ' ' + person.getName() +
+       ' ' + person.getPatronymic() + ', ' + person.getDateOfBirth()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/persons/new">Create new person</a>
+</body>
+</html>
