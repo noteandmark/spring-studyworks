@@ -30,6 +30,8 @@ public class PersonDTO {
 
     private String password;
 
+    private String role;
+
     private List<Book> books;
 
     public PersonDTO(String name, String patronymic, String surname) {
@@ -104,6 +106,14 @@ public class PersonDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
