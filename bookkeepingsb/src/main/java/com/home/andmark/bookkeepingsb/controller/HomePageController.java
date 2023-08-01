@@ -25,4 +25,8 @@ public class HomePageController {
         return "index";
     }
 
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "admin";
+    }
 }

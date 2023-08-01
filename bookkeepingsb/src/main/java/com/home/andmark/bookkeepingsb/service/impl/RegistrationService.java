@@ -30,6 +30,7 @@ public class RegistrationService {
 
         personDTO.setCreatedAt(new Date());
         personDTO.setPassword(encode);
+        personDTO.setRole("ROLE_USER");
 
         personsRepository.save(mapper.map(personDTO, Person.class));
     }
