@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
@@ -25,12 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()//disable protection against cross-site request support
                 .authorizeRequests()
-                .antMatchers("/auth/login","/auth/registration","/error").permitAll()
+                .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/",true)
+                .defaultSuccessUrl("/", true)
                 .failureUrl("/auth/login?error")
                 .and()
                 .logout()
@@ -41,11 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //configures authentication
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(personDetailsService);
+        auth.userDetailsService(personDetailsService)
+                .passwordEncoder(getPasswordEncoder());
     }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }
