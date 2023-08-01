@@ -23,8 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //config Spring Security and authorisation
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()//disable protection against cross-site request support
-                .authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
