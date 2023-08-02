@@ -11,3 +11,5 @@ spring.jpa.properties.hibernate.show_sql=true
 
 # Configuration HiddenFilterForHttpMethods PUT,PATCH,DELETE
 spring.mvc.hiddenmethod.filter.enabled=true
+
+jwt_secret=

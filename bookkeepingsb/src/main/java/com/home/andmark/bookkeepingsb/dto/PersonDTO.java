@@ -1,5 +1,6 @@
 package com.home.andmark.bookkeepingsb.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.home.andmark.bookkeepingsb.model.Book;
 //import jakarta.validation.constraints.NotEmpty;
 //import jakarta.validation.constraints.Size;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class PersonDTO {
-//    private int id;
+    private int id;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 100, message = "Name should be between 2 and 100 characters")
@@ -24,6 +25,7 @@ public class PersonDTO {
     @Size(min = 2, max = 100, message = "Surname should be between 2 and 100 characters")
     private String surname;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
     private Date createdAt;
@@ -52,13 +54,13 @@ public class PersonDTO {
         this.books = books;
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

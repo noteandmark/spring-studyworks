@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 //import jakarta.validation.constraints.Size;
 
 public class BookDTO {
-//    private int id;
+    private int id;
     private Person owner;
 
     @NotEmpty(message = "Title should not be empty")
@@ -39,13 +39,13 @@ public class BookDTO {
 
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Person getOwner() {
         return owner;

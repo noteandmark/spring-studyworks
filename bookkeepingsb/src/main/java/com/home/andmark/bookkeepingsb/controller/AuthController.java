@@ -1,29 +1,34 @@
 package com.home.andmark.bookkeepingsb.controller;
 
 import com.home.andmark.bookkeepingsb.dto.PersonDTO;
+import com.home.andmark.bookkeepingsb.model.Person;
+import com.home.andmark.bookkeepingsb.security.JWTUtil;
 import com.home.andmark.bookkeepingsb.service.impl.RegistrationService;
 import com.home.andmark.bookkeepingsb.util.PersonValidator;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     private final PersonValidator personValidator;
     private final RegistrationService registrationService;
+    private final JWTUtil jwtUtil;
+    private final ModelMapper mapper;
 
     @Autowired
-    public AuthController(PersonValidator personValidator, RegistrationService registrationService) {
+    public AuthController(PersonValidator personValidator, RegistrationService registrationService, JWTUtil jwtUtil, ModelMapper mapper) {
         this.personValidator = personValidator;
         this.registrationService = registrationService;
+        this.jwtUtil = jwtUtil;
+        this.mapper = mapper;
     }
 
     @GetMapping("/login")
@@ -37,14 +42,19 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String performRegistration(@ModelAttribute("person") @Valid PersonDTO personDTO,
+    public Map<String,String> performRegistration(@RequestBody @Valid PersonDTO personDTO,
                                       BindingResult bindingResult) {
         personValidator.validate(personDTO, bindingResult);
         if (bindingResult.hasErrors())
-            return "auth/registration";
+            return Map.of("message","Error perform registration!");
 
         registrationService.register(personDTO);
 
-        return "redirect:/auth/login";
+        String token = jwtUtil.generateToken(personDTO.getSurname());
+        return Map.of("jwt-token",token);
+    }
+
+    public Person convertToPerson(PersonDTO personDTO) {
+        return this.mapper.map(personDTO, Person.class);
     }
 }
