@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 //import jakarta.validation.constraints.Size;
 
 public class BookDTO {
-    private int id;
+//    private int id;
     private Person owner;
 
     @NotEmpty(message = "Title should not be empty")
@@ -39,13 +39,13 @@ public class BookDTO {
 
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public Person getOwner() {
         return owner;
@@ -95,29 +95,4 @@ public class BookDTO {
         this.overdue = overdue;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BookDTO bookDTO = (BookDTO) o;
-        return id == bookDTO.id && year == bookDTO.year && overdue == bookDTO.overdue && Objects.equals(owner, bookDTO.owner) && Objects.equals(title, bookDTO.title) && Objects.equals(author, bookDTO.author) && Objects.equals(takenAt, bookDTO.takenAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, owner, title, author, year, takenAt, overdue);
-    }
-
-    @Override
-    public String toString() {
-        return "BookDTO{" +
-                "id=" + id +
-                ", owner=" + owner +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", year=" + year +
-                ", takenAt=" + takenAt +
-                ", overdue=" + overdue +
-                '}';
-    }
 }

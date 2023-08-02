@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class PersonDTO {
-    private int id;
+//    private int id;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 100, message = "Name should be between 2 and 100 characters")
@@ -52,13 +52,13 @@ public class PersonDTO {
         this.books = books;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -116,30 +116,4 @@ public class PersonDTO {
         this.role = role;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonDTO personDTO = (PersonDTO) o;
-        return id == personDTO.id && Objects.equals(name, personDTO.name) && Objects.equals(patronymic, personDTO.patronymic) && Objects.equals(surname, personDTO.surname) && Objects.equals(dateOfBirth, personDTO.dateOfBirth) && Objects.equals(createdAt, personDTO.createdAt) && Objects.equals(books, personDTO.books);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, patronymic, surname, dateOfBirth, createdAt, books);
-    }
-
-    @Override
-    public String toString() {
-        return "PersonDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", surname='" + surname + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", createdAt=" + createdAt +
-                ", password='" + password + '\'' +
-                ", books=" + books +
-                '}';
-    }
 }

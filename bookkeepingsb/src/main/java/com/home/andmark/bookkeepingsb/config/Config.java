@@ -7,16 +7,16 @@ import org.springframework.context.annotation.Configuration;
 
 import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
-@Configuration
+//@Configuration
 public class Config {
-    @Bean
-    public ModelMapper modelMapper() {
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT)
-                .setFieldMatchingEnabled(true)
-                .setSkipNullEnabled(true)
-                .setFieldAccessLevel(PRIVATE);
-        return mapper;
-    }
+//    @Bean
+//    public ModelMapper modelMapper() {
+//        ModelMapper mapper = new ModelMapper();
+//        mapper.getConfiguration()
+//                .setMatchingStrategy(MatchingStrategies.STRICT)
+//                .setFieldMatchingEnabled(true)
+//                .setSkipNullEnabled(true)
+//                .setFieldAccessLevel(PRIVATE);
+//        return mapper;
+//    }
 }
