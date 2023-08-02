@@ -51,7 +51,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDTO> findAllPaginated(int page, int booksPerPage) {
-//        Page<Book> bookPage = booksRepository.findAll(PageRequest.of(page, booksPerPage));
         List<Book> bookPage = booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("year"))).getContent();
         return mapListOfEntityToDTO(bookPage);
     }
