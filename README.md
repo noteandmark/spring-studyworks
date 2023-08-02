@@ -4,6 +4,27 @@ coursework while learning the framework spring
 1. BookKeeping - program for digital record keeping in the library (3 realisations: jdbcTemplate, Hibernate, Data JPA)
 2. BookKeepingSB - task realisation on Spring Boot and Spring Security
 ---
+# BookKeepingSB
+##Terms of Reference
+
+*Task*
+
+The local library wants to go digital for books. You need to implement a web application for them. The librarians need to be able to register readers, issue them with books and release books (after the reader returns the book back to the library).
+
+*Technologies used*
+
+Java11, Spring Boot; Spring Security, Java JWT; Spring Data JPA, PostgreSQL; Hibernate Validator
+
+This is an implementation of the previous task, translated to the Spring Boot platform. Many new features have been added to the project: such as authentication and user authorisation both via web pages and POST requests
+
+# Main features
+- all the opportunities presented in the BookKeeping
+- user authentication and authorisation with Spring Security component
+- option login without and with csrf token
+- restricting user logins to pages depending on the role
+- password encryption with HMAC256 algorithm
+- ability to receive and send jwt token
+---
 # BookKeeping
 ##Terms of Reference
 
@@ -13,15 +34,7 @@ The local library wants to go digital for books. You need to implement a web app
 
 *Technologies used*
 
-Java11, Spring Framework
-
-Spring Data JPA, Hibernate, JDBC Template, PostgreSQL, H2,
-
-JUnit, Mockito
-
-Hibernate Validator, Jakarta Validation,
-
-Thymeleaf, Bootstrap
+Java11, Spring Framework; Spring Data JPA, Hibernate, JDBC Template, PostgreSQL, H2; JUnit, Mockito; Hibernate Validator, Jakarta Validation; Thymeleaf, Bootstrap
 
 Overall, web application utilizes a modern Java Spring stack with Thymeleaf for templating and PostgreSQL as the database. It ensures data integrity and validation through the use of Hibernate Validator, and testing is facilitated using JUnit 5 and Mockito. Additionally, Bootstrap provides a clean and responsive user interface, enhancing the overall user experience.
 
@@ -43,26 +56,3 @@ Overall, web application utilizes a modern Java Spring stack with Thymeleaf for 
 - added sorting of books by year
 - a page for searching books by title and matching initial letters
 - added an automatic check to see if a person is overdue to return a book
-
----
-# BookKeepingSB
-
-*Technologies used*
-
-Java11, Spring Boot
-
-Spring Security, Java JWT
-
-Spring Data JPA, PostgreSQL
-
-Hibernate Validator
-
-This is an implementation of the previous task, translated to the Spring Boot platform. Many new features have been added to the project: such as authentication and user authorisation both via web pages and POST requests
-
-# Main features
-- all the opportunities presented in the BookKeeping
-- user authentication and authorisation with Spring Security component
-- option login without and with csrf token
-- restricting user logins to pages depending on the role
-- password encryption with HMAC256 algorithm
-- ability to receive and send jwt token
